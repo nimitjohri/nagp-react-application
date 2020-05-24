@@ -1,3 +1,17 @@
 .mrp {
     color: crimson;
 }
+
+.Product {
+    padding: 4px;
+}
+.card {
+    width: 18rem;
+    height: 20rem;
+    padding: 4px;
+}
+
+.card-img-top {
+    height: 100px;
+    align-content: center;
+}

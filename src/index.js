@@ -6,16 +6,22 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
 import { PersistGate } from "redux-persist/lib/integration/react";
-import configureStore from './store/configureStore'
+import { store, persistor } from './store/configureStore'
+import rootReducer from './reducers';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 
-let {store, persistor } = configureStore();
+store.subscribe(() => console.log("store", store.getState()));
 
 ReactDOM.render(
+  <PersistGate persistor={persistor} >
   <Provider store={store}>
     <Router>
       <App />
     </Router>,
-  </Provider>,
+  </Provider>,    
+  </PersistGate>,
   document.getElementById('root')
 );
 

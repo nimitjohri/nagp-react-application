@@ -1,10 +1,11 @@
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const FETCH_PRODUCT_BY_ID = 'FETCH_PRODUCT_BY_ID';
+export const FETCH_PRODUCTS_ON_SEARCH = 'FETCH_PRODUCTS_ON_SEARCH';
 
 const fetchProducts = () => 
     (dispatch, getState) => {
         console.log("GetProducts dispatch");
-        fetch("http://localhost:3001/phones")
+        fetch("http://localhost:3100/phones")
         .then((res) => res.json())
         .then((data) => {
             dispatch({
@@ -17,7 +18,7 @@ const fetchProducts = () =>
 export const fetchProductById = (id) => 
     (dispatch, getState) => {
         console.log("GetProductById dispatch");
-        fetch(`http://localhost:3001/phones/?id=${id}`)
+        fetch(`http://localhost:3100/phones?id=${id}`)
         .then(res => res.json())
         .then((data) => {
             dispatch({
@@ -25,6 +26,21 @@ export const fetchProductById = (id) =>
                 product: data
             });
         });
+    }
+
+export const fetchProductsOnSearch = (query) =>
+    (dispatch, getState) => {
+        console.log("Get Products on the basis of search", query)
+        if (query !== ""){
+            fetch(`http://localhost:3100/phones?q=${query}`)
+            .then(res => res.json())
+            .then((data) => {
+                dispatch({
+                    type: FETCH_PRODUCTS_ON_SEARCH,
+                    searchProducts: data
+                });
+            });    
+        }
     }
 
 export default () => {

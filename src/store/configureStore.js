@@ -6,16 +6,15 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from '../reducers/index'
  
 const persistConfig = {
-  key: 'root',
+  key: 'cartReducer',
   storage: storage,
+  whitelist: ['cartReducer']
 }
 
 const middlewares = [thunk];
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
- 
-export default () => {
-  let store = createStore(persistedReducer, composeWithDevTools(), applyMiddleware(...middlewares))
-  let persistor = persistStore(store)
-  return { store, persistor }
-}
+const store = createStore(persistedReducer, composeWithDevTools(), applyMiddleware(...middlewares))
+const persistor = persistStore(store)
+
+export {store, persistor}
