@@ -326,5 +326,21 @@
             ]
         }   
 
+    ],
+    "users": [
+        {
+            "id":1,
+            "username": "nimitjohri",
+            "email": "nimit@gmail.com",
+            "name": "Nimit Johri",
+            "password": "pass123"
+        },
+        {
+            "id":2,
+            "username": "adityapandey",
+            "email": "aditya@gmail.com",
+            "name": "Aditya Pandey",
+            "password": "aditya123"
+        }
     ]
 }

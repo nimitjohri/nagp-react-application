@@ -7,7 +7,7 @@ import Pagination from "react-bootstrap/Pagination";
 import {fetchProducts} from '../../../actions/productAction';
 import { connect } from "react-redux";
 
-class ProductList extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -94,5 +94,5 @@ function mapStateToProps(state) {
     };
   };
   
-  export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
+  export default connect(mapStateToProps, mapDispatchToProps)(Home);
   

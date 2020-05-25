@@ -1,5 +1,4 @@
 import { ADD_ITEM_TO_CART, SUB_QUANTITY, ADD_QUANTITY, REMOVE_ITEM } from "../actions/cartAction";
-import { getProducts } from "./product_helper";
 
 const CART_INITIAL_STATE = {
   itemsAdded: [],

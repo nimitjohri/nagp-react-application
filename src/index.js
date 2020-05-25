@@ -7,10 +7,6 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { store, persistor } from './store/configureStore'
-import rootReducer from './reducers';
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
 
 store.subscribe(() => console.log("store", store.getState()));
 

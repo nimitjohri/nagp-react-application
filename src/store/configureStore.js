@@ -8,7 +8,7 @@ import rootReducer from '../reducers/index'
 const persistConfig = {
   key: 'cartReducer',
   storage: storage,
-  whitelist: ['cartReducer']
+  whitelist: ['cartReducer', 'loginReducer']
 }
 
 const middlewares = [thunk];

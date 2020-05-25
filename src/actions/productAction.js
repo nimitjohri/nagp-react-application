@@ -2,7 +2,7 @@ export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const FETCH_PRODUCT_BY_ID = 'FETCH_PRODUCT_BY_ID';
 export const FETCH_PRODUCTS_ON_SEARCH = 'FETCH_PRODUCTS_ON_SEARCH';
 
-const fetchProducts = () => 
+export const fetchProducts = () => 
     (dispatch, getState) => {
         console.log("GetProducts dispatch");
         fetch("http://localhost:3100/phones")
@@ -40,6 +40,11 @@ export const fetchProductsOnSearch = (query) =>
                     searchProducts: data
                 });
             });    
+        } else if (query === "") {
+            dispatch({
+                type: FETCH_PRODUCTS_ON_SEARCH,
+                searchProducts: []
+            })
         }
     }
 

@@ -8,6 +8,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import addItemToCart from "../../../actions/cartAction";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import "./ProductDetails.css";
+import { withRouter } from "react-router-dom";
 
 let { fetchProductById } = productAction();
 
@@ -20,12 +24,16 @@ class ProductDetails extends Component {
   }
 
   handleAddToCartClick = (id, product) => {
-    console.log('product to add id', id)
-    console.log('product to be added', product)
+    console.log("product to add id", id);
+    console.log("product to be added", product);
     this.props.addItemToCart(id, product);
-  }
+  };
 
-  componentDidMount() {''
+  handleClickGoBack = () => {
+    this.props.history.go(-1)
+  }
+  componentDidMount() {
+    "";
     this.props.fetchProductById(this.props.match.params.id);
   }
 
@@ -33,8 +41,15 @@ class ProductDetails extends Component {
     if (this.props.product && this.props.product.length > 0) {
       return (
         <div className="ProductDetails">
-          <p>product id - {this.props.match.params.id} </p>
-          <Container>
+          <span className="go-back">
+            <Button variant="outline-primary"
+              onClick={this.handleClickGoBack}
+            >
+              <FontAwesomeIcon icon={faArrowLeft} size="1.5x" />{"  "}
+              Go Back
+            </Button>
+          </span>
+          <div className="details-container">
             <Row className="justify-content-md-center">
               <Col md lg="2"></Col>
               <Image
@@ -64,13 +79,23 @@ class ProductDetails extends Component {
                   </Card.Body>
                   <Card.Footer>
                     <div>
-                      <Button variant="primary" onClick={() => this.handleAddToCartClick(this.props.product[0].id, this.props.product[0]) } >Add To Cart</Button>{" "}
+                      <Button
+                        variant="primary"
+                        onClick={() =>
+                          this.handleAddToCartClick(
+                            this.props.product[0].id,
+                            this.props.product[0]
+                          )
+                        }
+                      >
+                        Add To Cart
+                      </Button>{" "}
                     </div>
                   </Card.Footer>
                 </Card>
               </Col>
             </Row>
-          </Container>
+          </div>
         </div>
       );
     } else {
@@ -92,4 +117,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProductDetails));

@@ -6,7 +6,7 @@ import ProductList from './Components/Product/ProductList/ProductList';
 import PageHeader from './Components/Page/PageHeader';
 import ProductDetails from './Components/Product/ProductDetails/ProductDetails';
 import Cart from './Components/Cart/Cart';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Login from './Components/Login/Login';
 
 class App extends Component {
   render() {
@@ -18,6 +18,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={ProductList}/>
           <Route path='/product/id=:id' component={ProductDetails}/>
+          <Route path='/login'  component={Login} />
           <Route path='/cart' component={Cart} />
         </Switch>
       </div>

@@ -1,3 +1,12 @@
-.ProductDetails {
-    align-content: center;
+
+.svg-inline--fa {
+    padding: 2px;
+    color: rgb(105, 88, 226);
+}
+
+
+.go-back {
+    padding: 3px;
+    display: flex;
+    
 }

@@ -2,3 +2,12 @@
     padding: 2px;
     color: dimgray;
 }
+
+.item-img {
+    height: 25rem;
+    width: 30;
+}
+img {
+    height: 22rem;
+    width: 18rem;
+}
