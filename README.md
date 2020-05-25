@@ -1,3 +1,33 @@
+
+## Documentaion file has already been added in zip folder with screenshots
+
+React Assignment Documentation
+User info to login :
+	User 1: email – nimit@gmail.com
+		Password – pass123
+	User 2: email – aditya@gmail.com
+		Password – aditya123
+Json server:
+	Json server provides data for products and users
+	Start json server by json-server –watch -p 3100 db.json
+Note- For application to work please start json server at 3100 port 
+Users functionalities – 
+1.	User can view Products
+2.	User can view Product details
+3.	User can add Product both from home page and detail page
+4.	User can search for Product
+5.	User can increase or decrease quantity of product in cart 
+    a.	If quantity becomes 0 product is removed automatically
+6.	User can remove product from cart directly
+7.	User can checkout order only if it is login
+    a.	If email or password are incorrect error is thrown and showed on login screen
+8.	If cart is checkout successfully toastr notification is showed with order id
+9.	User can filter the product list by price  (high to low)  OR (Low to high)
+10.	User can change page of products shown max limit is 4 item per page
+11.	Toastr notification will be showed if user added products or logout
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
