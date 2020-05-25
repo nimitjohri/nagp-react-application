@@ -24,5 +24,11 @@ export const loginUser = (email, password) =>
             })
         })
     }
+export const logoutuser = () => 
+    (dispatch, getState) => {
+        dispatch({
+            type: LOGOUT_USER
+        })
+    }
 
 export default loginUser;

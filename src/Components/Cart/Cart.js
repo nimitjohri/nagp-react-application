@@ -4,6 +4,7 @@ import {
   subtractQuantity,
   addQuantity,
   removeItem,
+  checkoutSuccess,
 } from "../../actions/cartAction";
 import { Link } from "react-bootstrap-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,21 +14,38 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
+import { withRouter } from "react-router-dom";
+import { toastr } from "react-redux-toastr";
 class Cart extends Component {
+
   //to remove the item completely
   handleRemove = (id) => {
     this.props.removeItem(id);
   };
 
+  handleOnClickCheckout = () => {
+    if(this.props.isLoggedIn) {
+      console.log('can checkout successfully')
+      this.props.checkoutSuccess();
+      toastr.success('Order placed successfully', `ORDER ID: ORDER_ID_${Math.random()}`)
+      this.props.history.push('/')
+    } else {
+      toastr.danger('User not Logged In', `Please Login to continuee...`)
+      this.props.history.push('/login')
+    }
+  }
+
   handleAddQuantity = (id) => {
     this.props.addQuantity(id);
     this.forceUpdate();
   };
+
   //to substruct from the quantity
   handleSubtractQuantity = (id) => {
     this.props.subtractQuantity(id);
     this.forceUpdate();
   };
+
   render() {
     if (this.props.items) {
       let addedItems =
@@ -48,7 +66,7 @@ class Cart extends Component {
                     <b>Storage: </b> {item.storage}
                   </p>
                   <p>
-                    <b>Price: {item.price}$</b>
+                    <b>Price: ₹ {item.price}</b>
                   </p>
                   <div className="add-remove">
                     <span>
@@ -135,6 +153,8 @@ class Cart extends Component {
                   To place your Order Please Checout ... 
                   <Button
                     variant="outline-success"
+                    onClick={() => 
+                    this.handleOnClickCheckout()}
                   >
                     Checkout
                   </Button>
@@ -157,6 +177,7 @@ const mapStateToProps = (state) => {
   return {
     items: state.cartReducer.itemsAdded,
     total: state.cartReducer.total,
+    isLoggedIn: state.loginReducer.isLoggedIn,
   };
 };
 
@@ -171,7 +192,10 @@ const mapDispatchToProps = (dispatch) => {
     subtractQuantity: (id) => {
       dispatch(subtractQuantity(id));
     },
+    checkoutSuccess: () => {
+      dispatch(checkoutSuccess());
+    }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart));

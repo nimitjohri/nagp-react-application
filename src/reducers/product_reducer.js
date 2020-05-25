@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     searchPayload: {},
     searchProducts:[],
     loading: false,
+    showSearchProducts: false,
 }
 
 function productsReducer(state = INITIAL_STATE, action) {
@@ -13,19 +14,20 @@ function productsReducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 payload: action.products,
-                loading: false
+                loading: false,
             }
         case FETCH_PRODUCT_BY_ID:
             return {
                 ...state,
                 payload: action.product,
-                loading: false
+                loading: false,
             }
         case FETCH_PRODUCTS_ON_SEARCH:
             return {
                 ...state,
                 searchProducts: action.searchProducts,
                 loading: false,
+                showSearchProducts: true
             }
         default: 
             return state;

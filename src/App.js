@@ -7,6 +7,7 @@ import PageHeader from './Components/Page/PageHeader';
 import ProductDetails from './Components/Product/ProductDetails/ProductDetails';
 import Cart from './Components/Cart/Cart';
 import Login from './Components/Login/Login';
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
 class App extends Component {
   render() {

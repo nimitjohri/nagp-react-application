@@ -1,4 +1,4 @@
-import { LOGIN_USER } from "../actions/loginAction"
+import { LOGIN_USER, LOGOUT_USER, LOGIN_FAILED } from "../actions/loginAction"
 
 const LOGIN_INITIAL_STATE = {
     isLoggedIn: false,
@@ -10,10 +10,6 @@ const LOGIN_INITIAL_STATE = {
 const loginReducers = (state= LOGIN_INITIAL_STATE, action) => {
     switch(action.type) {
         case LOGIN_USER:
-            console.log('inside here')
-            console.log('email', action.email)
-            console.log('password', action.password)   
-            console.log('user', action.user)   
             if (action.user.password === action.password) {
                 return {
                     ...state,
@@ -25,6 +21,17 @@ const loginReducers = (state= LOGIN_INITIAL_STATE, action) => {
                     ...state,
                     loginErrMsg: 'Please check your password'
                 }
+            }
+        case LOGOUT_USER:
+            return {
+                ...state,
+                user: {},
+                isLoggedIn: false
+            }
+        case LOGIN_FAILED:
+            return{
+                ...state,
+                loginErrMsg: 'Please check your Email'
             }
         default:
             return state

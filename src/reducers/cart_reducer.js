@@ -1,4 +1,4 @@
-import { ADD_ITEM_TO_CART, SUB_QUANTITY, ADD_QUANTITY, REMOVE_ITEM } from "../actions/cartAction";
+import { ADD_ITEM_TO_CART, SUB_QUANTITY, ADD_QUANTITY, REMOVE_ITEM, CHECKOUT_CART_SUCCESS } from "../actions/cartAction";
 
 const CART_INITIAL_STATE = {
   itemsAdded: [],
@@ -23,7 +23,7 @@ const cartReducers = (state=CART_INITIAL_STATE, action) => {
       } else {
         addedItem.quantity = 1;
 
-        let newTotal = (state.total = addedItem.price);
+        let newTotal = (state.total + addedItem.price);
 
       return {
         ...state,
@@ -74,6 +74,12 @@ const cartReducers = (state=CART_INITIAL_STATE, action) => {
             total: newTotal
           }
         }
+    case CHECKOUT_CART_SUCCESS:
+      return {
+        ...state,
+        itemsAdded: [],
+        total: 0
+      }
 
     default:
       return state

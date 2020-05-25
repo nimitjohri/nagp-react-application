@@ -2,6 +2,7 @@ export const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
 export const SUB_QUANTITY = 'SUB_QUANTITY';
 export const ADD_QUANTITY = 'ADD_QUANTITY';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
+export const CHECKOUT_CART_SUCCESS = 'CHECKOUT_CART_SUCCESS'
 
 export const addItemToCart = (isLoggedIn, id, product) => 
     (dispatch, getState) => {
@@ -36,5 +37,12 @@ export const removeItem = (id) =>
             id: id,
     })    
 }
+
+export const checkoutSuccess = () => 
+    (dispatch, getState) => {
+        dispatch({
+            type: CHECKOUT_CART_SUCCESS,
+        });
+    }
 
 export default addItemToCart;

@@ -24,6 +24,7 @@ class SearchBar extends Component {
     if (this.state.query !== "") {
       this.props.fetchProductsOnSearch(this.state.query);
       this.setState({ showSearchResults: true });
+      this.props.history.push("/");
     } else if (this.state.query === "") {
       console.log("empty");
       this.props.history.push("/");
@@ -42,6 +43,7 @@ class SearchBar extends Component {
             onChange={this.handleOnInputChange}
           />
           <Button
+            id="searchButton"
             variant="outline-info"
             onClick={this.handleOnSearchButtonClick}
           >

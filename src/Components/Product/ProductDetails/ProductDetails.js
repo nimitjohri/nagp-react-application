@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import "./ProductDetails.css";
 import { withRouter } from "react-router-dom";
+import { toastr } from "react-redux-toastr";
 
 let { fetchProductById } = productAction();
 
@@ -27,6 +28,7 @@ class ProductDetails extends Component {
     console.log("product to add id", id);
     console.log("product to be added", product);
     this.props.addItemToCart(id, product);
+    toastr.info('Product Added To Cart', `${product.name} added to cart`)
   };
 
   handleClickGoBack = () => {
@@ -45,7 +47,7 @@ class ProductDetails extends Component {
             <Button variant="outline-primary"
               onClick={this.handleClickGoBack}
             >
-              <FontAwesomeIcon icon={faArrowLeft} size="1.5x" />{"  "}
+              <FontAwesomeIcon icon={faArrowLeft} size="sm" />{"  "}
               Go Back
             </Button>
           </span>
@@ -75,6 +77,16 @@ class ProductDetails extends Component {
                     MRP:{" "}
                     <span className="mrp">
                       ₹ {this.props.product[0].variant[0].price}
+                    </span>
+                    <br></br>
+                    Storage:{" "}
+                    <span className="storage">
+                      {this.props.product[0].storage}
+                    </span>
+                    <br></br>
+                    RAM:{" "}
+                    <span className="ram">
+                      {this.props.product[0].ram}
                     </span>
                   </Card.Body>
                   <Card.Footer>

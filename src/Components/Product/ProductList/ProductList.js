@@ -6,15 +6,38 @@ import Row from "react-bootstrap/Row";
 import Pagination from "react-bootstrap/Pagination";
 import {fetchProducts} from '../../../actions/productAction';
 import { connect } from "react-redux";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup"
+import { faArrowDown, faArrowUp, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./ProductList.css"
 
 class ProductList extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       currentPage: 1,
       productsPerPage: 4,
+      showFilterResults: false
     };
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.productsToDisplay = []
+
+  }
+
+  sortByPriceLowToHigh = () => {
+      this.productsToDisplay.sort((a, b) => (a.price - b.price))
+      this.setState({showFilterResults: !this.state.showFilterResults})
+  } 
+
+  sortByPriceHighToLow = () => {
+    this.productsToDisplay.sort((a, b) => (b.price - a.price))
+    this.setState({showFilterResults: !this.state.showFilterResults})
+  }
+
+  removeFilter = () => {
+    window.location.reload()
   }
 
   handlePageChange(event) {
@@ -27,18 +50,17 @@ class ProductList extends Component {
   }
 
   render() {
-      let productsToDisplay;
-      (this.props.searchProducts && this.props.searchProducts.length > 0) ? (
-        productsToDisplay = this.props.searchProducts
+    (this.props.searchProducts && this.props.showSearchProducts && !this.state.showFilterResults) ? (
+        this.productsToDisplay = this.props.searchProducts
       ): (
-          productsToDisplay = this.props.products
+          this.productsToDisplay = this.props.products
       )
-    if (productsToDisplay.length > 0) {
+    if (this.productsToDisplay.length > 0) {
         const indexOfLastProduct =
           this.state.currentPage * this.state.productsPerPage;
         const indexOfFirstProduct =
           indexOfLastProduct - this.state.productsPerPage;
-        const currentProducts = productsToDisplay.slice(
+        const currentProducts = this.productsToDisplay.slice(
           indexOfFirstProduct,
           indexOfLastProduct
         );
@@ -46,7 +68,7 @@ class ProductList extends Component {
         let count = 1;
         for (
           let number = 1;
-          number <= productsToDisplay.length;
+          number <= this.productsToDisplay.length;
           count++, number = number + this.state.productsPerPage
         ) {
           items.push(
@@ -63,6 +85,20 @@ class ProductList extends Component {
         });
         return (
           <div className="Products">
+            <ButtonGroup aria-label="Basic example">
+            <Button variant="outline-primary" onClick={() => this.removeFilter()} > 
+               <FontAwesomeIcon icon={faTimes} />
+               RemoveFilter</Button>
+
+              <Button variant="outline-primary" onClick={() => this.sortByPriceLowToHigh()} > 
+               <FontAwesomeIcon icon={faArrowUp} />
+               Low To High</Button>
+
+               <Button variant="outline-primary" onClick={() => this.sortByPriceHighToLow()} > 
+               <FontAwesomeIcon icon={faArrowDown} />
+               High To Low</Button>
+
+            </ButtonGroup>
             <Container fluid style={{ padding: "8px", alignContent: "center" }}>
             <Row className="justify-content-center">
               {renderProducts}
@@ -83,6 +119,7 @@ function mapStateToProps(state) {
     return {
       products: state.productsReducer.payload,
       searchProducts: state.productsReducer.searchProducts,
+      showSearchProducts: state.productsReducer.showSearchProducts,
     };
   }
   

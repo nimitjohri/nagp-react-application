@@ -7,12 +7,22 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { store, persistor } from './store/configureStore'
+import ReduxToastr from 'react-redux-toastr';
 
 store.subscribe(() => console.log("store", store.getState()));
 
 ReactDOM.render(
   <PersistGate persistor={persistor} >
   <Provider store={store}>
+    <ReduxToastr
+      timeout={4000}
+      newestOnTop={true}
+      position="top-right"
+      getState={(state) => state.toastr} // This is the default
+      transitionIn="fadeIn"
+      transitionOut="fadeOut"
+      progressBar
+      closeOnToastrClick />
     <Router>
       <App />
     </Router>,
